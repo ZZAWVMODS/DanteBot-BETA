@@ -1,2 +1,2 @@
-# DanteBot-BETA
+## DanteBot-BETA
 Nose pero es beta
