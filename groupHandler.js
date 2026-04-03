@@ -2,8 +2,7 @@ const fs = require('fs');
 
 module.exports = async (socket, { id, participants, action }) => {
     try {
-        // SOLO procesar acciones de entrada/salida de miembros
-        // Ignorar cambios de permisos (promote/demote)
+        
         if (action !== 'add' && action !== 'remove') return;
         
         const dbPath = './database.json';
@@ -18,15 +17,12 @@ module.exports = async (socket, { id, participants, action }) => {
             let jid = typeof participant === 'string' ? participant : (participant?.id || null);
             if (!jid) continue;
 
-            // Verificar que realmente es un miembro nuevo/saliente
-            // y no un cambio de permisos
+          
             const participantInGroup = metadata.participants.find(p => p.id === jid);
             
-            // Para acción 'add': el usuario debe existir en la metadata actual
-            // Para acción 'remove': el usuario NO debe existir en la metadata actual
-            if (action === 'add' && !participantInGroup) continue; // No es un add real
-            if (action === 'remove' && participantInGroup) continue; // No es un remove real (probablemente es demote)
-
+            
+            if (action === 'add' && !participantInGroup) continue; 
+            if (action === 'remove' && participantInGroup) continue; 
             let profile;
             try {
                 profile = await socket.profilePictureUrl(jid, 'image');
