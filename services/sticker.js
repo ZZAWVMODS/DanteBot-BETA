@@ -1,7 +1,3 @@
-/**
- * Sticker Service - Dante Bot
- * Renderizado con compresión forzada a cuadrado perfecto (Sin bordes negros)
- */
 const path = require("node:path");
 const fs = require("node:fs");
 const webp = require("node-webpmux");
@@ -47,8 +43,7 @@ exports.processStaticSticker = async (inputPath, metadata) => {
   return new Promise((resolve, reject) => {
     const tempOutputPath = path.join(__dirname, `../tmp/static_${Date.now()}.webp`);
     
-    // Cambiamos el filtro para FORZAR el escalado a 512x512 ignonando el aspect ratio
-    // Esto comprime/estira la imagen para que llene todo el cuadro
+   
     const cmd = `ffmpeg -i "${inputPath}" -vf "scale=512:512" -f webp -quality 100 "${tempOutputPath}"`;
 
     exec(cmd, async (error) => {
@@ -67,7 +62,7 @@ exports.processAnimatedSticker = async (inputPath, metadata) => {
   return new Promise((resolve, reject) => {
     const tempOutputPath = path.join(__dirname, `../tmp/anim_${Date.now()}.webp`);
     
-    // Para videos, forzamos escala 512:512 y usamos un preset de compresión más alto
+  
     const cmd = `ffmpeg -i "${inputPath}" -t 7 -vf "scale=512:512,fps=15" -c:v libwebp -lossless 0 -quality 75 -compression_level 6 -loop 0 -an -f webp "${tempOutputPath}"`;
 
     exec(cmd, async (error) => {
