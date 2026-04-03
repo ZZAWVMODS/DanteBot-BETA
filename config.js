@@ -1,3 +1,5 @@
+//Algo simple pero funciona, solo se editan los campos para agregar otro owner
+
 module.exports = {
     botName: "DanteBot BETA",
     prefixes: ["!", ".", "/", "#"],
