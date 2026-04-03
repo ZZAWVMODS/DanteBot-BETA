@@ -1,3 +1,7 @@
+//Made by ZzawX
+
+
+
 const path = require("node:path");
 const fs = require("node:fs");
 const webp = require("node-webpmux");
